@@ -1,18 +1,9 @@
-# api-rural
+# api-agro
 
 # Como está a estrutura?
-Separei as instâncias em microsserviços, cada um com suas próprias dependências e repositórios. Seguindo o padrão do @Nest, utilizei o @Prisma como ORM, o que facilitou inclusive a criação das migrations.
+Separei as instâncias em modulos, seguindo o padrão do @Nest, utilizei o @Prisma como ORM, o que facilitou inclusive a criação das migrations.
 
-# Estrutura de pastas?
-/db carrega /scripts para iniciar o banco assim que o compose for rodado. </br>
-docker-compose.yml arquivo compose responsavel para iniciar os serviços. </br>
-Na raiz do projeto cada instancia é uma pasta /culture /producer ... </br>
-Cada instância possui suas configurações individuais porem com o mesmo padrão. </br>
-
-
-
-
-# Como rodar o projeto?
+# Como rodar o projeto localmente?
 
 1. primeiro instale o [Docker](https://www.docker.com/get-started/). </br>
 
@@ -20,33 +11,29 @@ Cada instância possui suas configurações individuais porem com o mesmo padrã
 
 3. clone o projeto. </br>
 
-Após clonar acesse a raiz do projeto e rode:
+Após clonar acesse a raiz do projeto e rode e ter certeza que o docker está rodando:<br>
+obs: não ensquece de configurar o .env <br>
     
-    $ cd api-rural
-    $ docker compose up --build
+    $ cd api-agro
+    $ docker compose up 
 
-4. Após os ambientes rodando vamos rodar as migrations com prisma, cada servisso possui sua migration </br>
+4. Com isso feito o compose ja preparou o postgree e também um servidor web para visualizar o banco na porta localhost:8080</br>
 
-Obs: Faça isso consecutivamente nos próximos serviços, alterando no .env a variável DATABASE_URL de 'host.docker.internal' para 'localhost'. Essa alteração é apenas para rodar a migration; depois, retorne ao padrão 'host.docker.internal'.</br>
+Agora vamos rodar as migrations, acesse um novo terminal e rode na raiz do projeto:</br>
 
-    $ cd producer 
-    $ npx migrate dev --name initProducer 
-    $ cd .. 
-    $ cd culture
-    $ npx migrate dev --name initCulture 
+    $ npx migrate dev --name init
 
-5. Após subir as migrations e voltar a configuração padrão reinicie a aplicação</br>
+5. Após subir as migrations podemos finalmente iniciar o projeto</br>
 
 Rodando na raiz do projeto:
 
-    $ docker compose down
-    $ docker compose up --build
+    $ npm start
 
-6. Caso queira testar apenas um serviço especifico, altere no .env dele para localhost e da um STOP na instância dele no docker.
+Agora a API ja está disponivel em localhost:3000
 
 # Como acesso o projeto no Swager?
 
-Você pode acessar a documentação do @Swagger atraves deste link: http://localhost:3001/api#/ </br>
-obs: caso estiver rodando localmente a porta é 3000, caso estiver no docker a porta vai ser a mesma do docker-compose.yml (cada seriviço possui sua doc na sua respectiva porta)
+Você pode acessar a documentação do @Swagger atraves deste link: http://localhost:3000/api/#/ </br>
+Lá vai ter todos os modulos e os respectivos Dto's que os representam.
 
 # api-agro
