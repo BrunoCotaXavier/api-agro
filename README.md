@@ -11,7 +11,7 @@ Separei as instâncias em modulos, seguindo o padrão do @Nest, utilizei o @Pris
 
 3. clone o projeto. </br>
 
-Após clonar acesse a raiz do projeto e rode e ter certeza que o docker está rodando:<br>
+Após clonar e ter certeza que o docker está rodando acesse a raiz do projeto e rode:<br>
 obs: não ensquece de configurar o .env <br>
     
     $ cd api-agro
