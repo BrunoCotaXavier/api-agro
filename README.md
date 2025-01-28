@@ -1,9 +1,7 @@
-# api-agro
-
-# Como está a estrutura?
+# Como está a estrutura? 👷🏽
 Separei as instâncias em modulos, seguindo o padrão do @Nest, utilizei o @Prisma como ORM, o que facilitou inclusive a criação das migrations.
 
-# Como rodar o projeto localmente?
+# Como rodar o projeto localmente? 👨🏽‍💻
 
 1. primeiro instale o [Docker](https://www.docker.com/get-started/). </br>
 
@@ -31,9 +29,7 @@ Rodando na raiz do projeto:
 
 Agora a API ja está disponivel em localhost:3000
 
-# Como acesso o projeto no Swager?
+# Como acesso o projeto no Swager? 🧙🏼‍♂️
 
 Você pode acessar a documentação do @Swagger atraves deste link: http://localhost:3000/api/#/ </br>
-Lá vai ter todos os modulos e os respectivos Dto's que os representam.
-
-# api-agro
+Lá vai ter todos os modulos e os respectivos Dto's que os representam.  
