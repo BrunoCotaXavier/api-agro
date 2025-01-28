@@ -3,6 +3,7 @@ import { ProducerModule } from './producer/producer.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CultureModule } from './culture/culture.module';
 import { PropertyModule } from './property/property.module';
+import { HarvestModule } from './harvest/harvest.module';
 
 @Module({
   imports: [
@@ -20,7 +21,8 @@ import { PropertyModule } from './property/property.module';
     }),
     ProducerModule,
     CultureModule,
-    PropertyModule
+    PropertyModule,
+    HarvestModule
   ],
 })
 export class AppModule { }
