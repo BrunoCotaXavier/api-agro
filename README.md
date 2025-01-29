@@ -1,6 +1,6 @@
 # Como está a estrutura? 👷🏽
 - Separei as instâncias em modulos, seguindo o padrão do @Nest, utilizei o @Prisma como ORM. <br>
-- O docker compose se responsabiliza para criar os ambiente em container, tanto a aplicação quando banco de dados junto com um administrados DB web.<br>
+- O docker compose se responsabiliza para criar os ambiente em container, tanto a aplicação quando banco de dados junto com um administrador DB web.<br>
 - Dentro do diretorio: /src, possui todos os modulos separadamentes em pastas, cada um segregado com suas dependencias. <br>
 - Cada modulo possui seus DTO's responsaveis também pela veracidade de cada dado. <br>
 - Quando necessário o modulo possui o diretorio: /decorators, responsável por decorators customizaveis do @Nest. <br>
