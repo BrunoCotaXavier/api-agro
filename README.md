@@ -10,26 +10,42 @@ Separei as instâncias em modulos, seguindo o padrão do @Nest, utilizei o @Pris
 3. clone o projeto. </br>
 
 Após clonar e ter certeza que o docker está rodando acesse a raiz do projeto e rode:<br>
-obs: não ensquece de configurar o .env <br>
+obs: não esqueca de ajustar o nome do .env <br>
     
     $ cd api-agro
-    $ docker compose up 
+    $ npm install
+    $ npx prisma generate
+    $ docker compose up --build
 
-4. Com isso feito o compose ja preparou o postgree e também um servidor web para visualizar o banco na porta localhost:8080</br>
+4. Com isso feito o compose ja preparou o banco postgree e também um servidor web para visualizar o banco na porta localhost:8080.</br>
+Também ja está acessivel a documentação da API acessando: localhost:3000/api.</br>
 
-Agora vamos rodar as migrations, acesse um novo terminal e rode na raiz do projeto:</br>
+Agora vamos rodar as migrations, primeiro vai no .env e mude apenas para rodar a migration de `db:5432` para `localhost:5432` <br> 
+Acesse um novo terminal e rode na raiz do projeto:</br>
 
-    $ npx migrate dev --name init
+    $ npx prisma migrate dev --name init 
 
-5. Após subir as migrations podemos finalmente iniciar o projeto</br>
+Agora ja pode voltar no arquivo .env de `localhost:5432` para `db:5432`. <br>
+Isso ocorre porque quando executa a migration você está fora do docker. <br> 
 
-Rodando na raiz do projeto:
+# Como testar o projeto? 🧙🏼‍♂️
+
+Você ja pode acessar a documentação da API criada com o @Swagger atraves deste link: localhost:3000/api/ </br>
+Lá vai ter todos os modulos e os respectivos Dto's que os representam.  <br>
+Você também pode acessar o @Adminer passando as credenciais do banco para visualizar os dados e as tabelas a partir deste link: localhost:8080.  <br>
+
+
+# Como rodar fora do docker? 🐳
+
+Como ja haviamos comentado, altere o .env de `db:5432` para `localhost:5432`. <br>
+Agora só executar na raiz do projeto. <br> 
+
+    $ docker ps 
+
+Copie o ID da sua aplicação que está rodando no container @docker e cole aqui.
+
+    $ docker stop seuIdContainer
+
+Agora só iniciar ela localmente rodando na raiz do projeto: 
 
     $ npm start
-
-Agora a API ja está disponivel em localhost:3000
-
-# Como acesso o projeto no Swager? 🧙🏼‍♂️
-
-Você pode acessar a documentação do @Swagger atraves deste link: http://localhost:3000/api/#/ </br>
-Lá vai ter todos os modulos e os respectivos Dto's que os representam.  
