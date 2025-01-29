@@ -1,4 +1,4 @@
-import { Controller, Get, Body, Post, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Body, Post, Param, Delete, Patch } from '@nestjs/common';
 import { ProducerService } from './producer.service';
 import { ProducerDto } from './dto/producer.dto';
 import { CreateProducerDto } from './dto/create-producer.dto';
@@ -13,7 +13,7 @@ export class ProducerController {
         return await this.producerService.create(createProducerDto);
     }
 
-    @Post(':id')
+    @Patch(':id')
     async updateProducer(@Param('id') id: string, @Body() producerDto: ProducerDto): Promise<ProducerDto> {
         console.log('### execute updateProducer');
         return await this.producerService.update(producerDto, parseInt(id));
@@ -24,7 +24,7 @@ export class ProducerController {
         console.log('### execute deleteProducer');
         return await this.producerService.delete(parseInt(id));
     }
-
+    
     @Get()
     async getProducers() {
         console.log('### execute getAll');

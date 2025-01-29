@@ -17,7 +17,7 @@ export class PropertyService {
         vegetationArea,
         cultivableArea,
         state,
-        city, 
+        city,
         producerId
       },
     });
@@ -25,6 +25,11 @@ export class PropertyService {
 
   async update(propertyDto: PropertyDto, id: number): Promise<PropertyDto> {
     const { name, totalArea, vegetationArea, cultivableArea, state, city, producerId } = propertyDto;
+
+    if (vegetationArea + cultivableArea > totalArea) {
+      throw new Error(`The sum of the vegetationArea and the cultivableArea cannot be greater than the totalArea`);
+    }
+    
     return await this.prisma.property.update({
       where: {
         id,
@@ -35,7 +40,7 @@ export class PropertyService {
         vegetationArea,
         cultivableArea,
         state,
-        city, 
+        city,
         producerId
       },
     })
@@ -51,6 +56,27 @@ export class PropertyService {
 
   async getAll(): Promise<PropertyDto[]> {
     return await this.prisma.property.findMany();
+  }
+
+  async countProperty() {
+    return this.prisma.property.count();
+  }
+
+  async countAreaProperty() {
+    return this.prisma.property.aggregate({
+      _sum: {
+        totalArea: true
+      }
+    });
+  }
+
+  async getStatesProperty() {
+    return this.prisma.property.findMany({
+      distinct: ['state'],
+      select: {
+        state: true, 
+      },
+    });
   }
 
   async getPropertyById(id: number): Promise<PropertyDto | null> {

@@ -6,6 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
 }
 
 datasource db {
@@ -14,13 +15,13 @@ datasource db {
 }
 
 model Producer {
-  id           Int        @id @default(autoincrement())
+  id           Int          @id @default(autoincrement())
   document     String
   documentType DocumentType
   name         String
   properties   Property[]
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
 }
 
 enum DocumentType {
@@ -60,7 +61,7 @@ model Harvest {
   propertyId  Int
   cultureId   Int
   property    Property @relation(fields: [propertyId], references: [id])
-  culture     Culture  @relation(fields: [cultureId], references: [id]) 
+  culture     Culture  @relation(fields: [cultureId], references: [id])
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

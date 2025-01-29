@@ -1,4 +1,5 @@
 import { IsString, IsNotEmpty, Length, IsNumber } from 'class-validator';
+import { IsValidTotalArea } from '../decorators/valid-total-area.decorator';
 
 export class CreatePropertyDto {
   @IsString()
@@ -17,6 +18,10 @@ export class CreatePropertyDto {
   @IsNumber()
   @IsNotEmpty()
   cultivableArea: number;
+
+  //obs: campo utilizado para decorator validar as areas, areaValidation não é enviado ou recebido.
+  @IsValidTotalArea()
+  areaValidation: boolean; 
 
   @IsString()
   @IsNotEmpty()

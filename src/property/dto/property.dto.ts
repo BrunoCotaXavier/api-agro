@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { IsValidTotalArea } from '../decorators/valid-total-area.decorator';
 
 export class PropertyDto {
   @ApiProperty({ example: 1, description: 'ID da propriedade' })

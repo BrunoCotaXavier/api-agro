@@ -1,4 +1,4 @@
-import { Controller, Get, Body, Post, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Body, Post, Param, Delete, Patch } from '@nestjs/common';
 import { CultureService } from './culture.service';
 import { CultureDto } from './dto/culture.dto';
 import { CreateCultureDto } from './dto/create-culture.dto';
@@ -13,7 +13,7 @@ export class CultureController {
     return this.cultureService.create(createCultureDto);
   }
 
-  @Post(':id')
+  @Patch(':id')
   async updateCulture(@Param('id') id: string, @Body() cultureDto: CultureDto): Promise <CultureDto> {
     console.log('### execute updateCulture');
     return await this.cultureService.update(cultureDto, parseInt(id));

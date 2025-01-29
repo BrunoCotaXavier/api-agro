@@ -1,4 +1,4 @@
-import { Controller, Get, Body, Post, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Body, Post, Param, Delete, Patch } from '@nestjs/common';
 import { HarvestService } from './harvest.service';
 import { HarvestDto } from './dto/harvest.dto';
 import { CreateHarvestDto } from './dto/create-harvest.dto';
@@ -13,7 +13,7 @@ export class HarvestController {
         return await this.harvestService.create(createHarvestDto);
     }
 
-    @Post(':id')
+    @Patch(':id')
     async updateHarvest(@Param('id') id: string, @Body() harvestDto: HarvestDto): Promise<HarvestDto> {
         console.log('### execute updateHarvest');
         return await this.harvestService.update(harvestDto, parseInt(id));

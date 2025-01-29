@@ -25,6 +25,24 @@ services:
     networks:
       - my_network
 
+  nestjs-app:
+    build:
+      context: .
+    container_name: nestjs-app
+    environment:
+      DATABASE_URL: postgres://postgres:postgres123@db:5432/postgres_rural
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: postgres123
+      DB_NAME: postgres_rural
+    ports:
+      - "3000:3000"
+    networks:
+      - my_network
+    depends_on:
+      - postgres
+
 volumes:
   postgres_data:
     driver: local

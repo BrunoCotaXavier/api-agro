@@ -17,7 +17,7 @@ import { HarvestModule } from './harvest/harvest.module';
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
       autoLoadEntities: true,
-      synchronize: true, // obs: true para ambiente dev.
+      /* synchronize: true,  */
     }),
     ProducerModule,
     CultureModule,

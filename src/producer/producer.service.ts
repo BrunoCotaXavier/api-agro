@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { CreateProducerDto } from './dto/create-producer.dto';
 import { ProducerDto } from './dto/producer.dto';
+import { cpf, cnpj } from 'cpf-cnpj-validator'; 
 
 @Injectable()
 export class ProducerService {
@@ -22,6 +23,18 @@ export class ProducerService {
 
   async update(producerDto: ProducerDto, id: number): Promise<ProducerDto> {
     const { name, document, documentType } = producerDto;
+
+    if (documentType === 'CPF') {
+      if (!cpf.isValid(document)) {
+        throw new Error(`### The CPF ${document} is invalid`);
+      }
+    }
+
+    if (documentType === 'CNPJ') {
+      if (!cnpj.isValid(document)) {
+        throw new Error(`### The CNPJ ${document} is invalid`);
+      }
+    }
     return await this.prisma.producer.update({
       where: {
         id,

@@ -1,4 +1,4 @@
-import { Controller, Get, Body, Post, Param, Delete, Inject } from '@nestjs/common';
+import { Controller, Get, Body, Post, Param, Delete, Patch } from '@nestjs/common';
 import { PropertyService } from './property.service';
 import { PropertyDto } from './dto/property.dto';
 import { CreatePropertyDto } from './dto/create-property.dto';
@@ -13,7 +13,7 @@ export class PropertyController {
     return await this.propertyService.create(createPropertyDto);
   }
 
-  @Post(':id')
+  @Patch(':id')
   async updateProperty(@Param('id') id: string, @Body() propertyDto: PropertyDto): Promise<PropertyDto> {
     console.log('### execute updateProperty');
     return await this.propertyService.update(propertyDto, parseInt(id));
@@ -29,6 +29,24 @@ export class PropertyController {
   async getPropertys() {
     console.log('### execute getAll');
     return await this.propertyService.getAll();
+  }
+
+  @Get('count')
+  async countPropertys() {
+    console.log('### execute countPropertys');
+    return await this.propertyService.countProperty();
+  }
+
+  @Get('count/area')
+  async countAreaPropertys() {
+    console.log('### execute countAreaPropertys');
+    return await this.propertyService.countAreaProperty();
+  }
+
+  @Get('state')
+  async listSatePropertys() {
+    console.log('### execute countAreaPropertys');
+    return await this.propertyService.getStatesProperty();
   }
 
   @Get(':id')
