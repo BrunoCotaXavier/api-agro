@@ -1,7 +1,8 @@
-import { Controller, Get, Body, Post, Param, Delete, Patch } from '@nestjs/common';
+import { Controller, Get, Body, Post, Param, Delete, Patch, Query } from '@nestjs/common';
 import { PropertyService } from './property.service';
 import { PropertyDto } from './dto/property.dto';
 import { CreatePropertyDto } from './dto/create-property.dto';
+import { ApiQuery } from '@nestjs/swagger';
 
 @Controller('property')
 export class PropertyController {
@@ -26,9 +27,19 @@ export class PropertyController {
   }
 
   @Get()
-  async getPropertys() {
+  @ApiQuery({ name: 'page', required: false, type: Number, example: 1 })
+  @ApiQuery({ name: 'pageSize', required: false, type: Number, example: 10 })
+  async getPropertys(@Query('page') page = '1', @Query('pageSize') pageSize = '10') {
     console.log('### execute getAll');
-    return await this.propertyService.getAll();
+    const pageNumber = parseInt(page, 10);
+    const pageSizeNumber = parseInt(pageSize, 10);
+    return await this.propertyService.getAll(pageNumber, pageSizeNumber);
+  }
+  
+  @Get('state')
+  async listSatePropertys() {
+    console.log('### execute countAreaPropertys');
+    return await this.propertyService.getStatesProperty();
   }
 
   @Get('count')
@@ -43,11 +54,6 @@ export class PropertyController {
     return await this.propertyService.countAreaProperty();
   }
 
-  @Get('state')
-  async listSatePropertys() {
-    console.log('### execute countAreaPropertys');
-    return await this.propertyService.getStatesProperty();
-  }
 
   @Get(':id')
   async getPropertyById(@Param('id') id: string) {

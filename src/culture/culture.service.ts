@@ -42,6 +42,9 @@ export class CultureService {
 
   async getCultureById(id: number): Promise<CultureDto | null> {
     return this.prisma.culture.findUnique({
+      include: {
+        harvests: true,
+      },
       where: { id },
     });
   }

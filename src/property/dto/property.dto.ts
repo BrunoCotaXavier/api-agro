@@ -11,10 +11,10 @@ export class PropertyDto {
   @ApiProperty({ example: 1000, description: 'Área total da propriedade (em metros quadrados)' })
   totalArea: number;
 
-  @ApiProperty({ example: 800, description: 'Área de vegetação da propriedade (em metros quadrados)' })
+  @ApiProperty({ example: 500, description: 'Área de vegetação da propriedade (em metros quadrados)' })
   vegetationArea: number;
 
-  @ApiProperty({ example: 600, description: 'Área cultivável da propriedade (em metros quadrados)' })
+  @ApiProperty({ example: 500, description: 'Área cultivável da propriedade (em metros quadrados)' })
   cultivableArea: number;
 
   @ApiProperty({ example: 'São Paulo', description: 'Estado onde a propriedade está localizada' })

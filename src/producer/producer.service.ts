@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { CreateProducerDto } from './dto/create-producer.dto';
 import { ProducerDto } from './dto/producer.dto';
-import { cpf, cnpj } from 'cpf-cnpj-validator'; 
+import { cpf, cnpj } from 'cpf-cnpj-validator';
 
 @Injectable()
 export class ProducerService {
@@ -55,13 +55,22 @@ export class ProducerService {
     })
   }
 
-  async getAll(): Promise<ProducerDto[]> {
-    return await this.prisma.producer.findMany();
+  async getAll(page: number, pageSize: number): Promise<{ data: ProducerDto[]; total: number }> {
+    const skip = (page - 1) * pageSize;
+    const [data, total] = await Promise.all([
+      this.prisma.producer.findMany({ include: { properties: true }, skip, take: pageSize }),
+      this.prisma.producer.count(),
+    ]);
+
+    return { data, total };
   }
 
   async getProducerById(producerId: any): Promise<ProducerDto | null> {
     const id = parseInt(producerId);
     return await this.prisma.producer.findUnique({
+      include: {
+        properties: true,
+      },
       where: { id },
     });
   }

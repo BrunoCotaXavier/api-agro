@@ -53,3 +53,11 @@ Copie o ID da sua aplicação que está rodando no container @docker e cole aqui
 Agora só iniciar ela localmente rodando na raiz do projeto: 
 
     $ npm start
+
+
+# Como executar os testes com Jest? ✅
+
+Com os containers rodando execute:
+
+    $ docker exec -it <container_id> sh
+    $ npm run test:e2e

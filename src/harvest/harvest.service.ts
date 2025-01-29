@@ -44,13 +44,23 @@ export class HarvestService {
     })
   }
 
-  async getAll(): Promise<HarvestDto[]> {
-    return await this.prisma.harvest.findMany();
+  async getAll(page: number, pageSize: number): Promise<{ data: HarvestDto[]; total: number }> {
+    const skip = (page - 1) * pageSize;
+    const [data, total] = await Promise.all([
+      this.prisma.harvest.findMany({ skip, take: pageSize }),
+      this.prisma.harvest.count(),
+    ]);
+
+    return { data, total };
   }
 
   async getHarvestById(harvestId: any): Promise<HarvestDto | null> {
     const id = parseInt(harvestId);
     return await this.prisma.harvest.findUnique({
+      include: {
+        culture: true,
+        property: true
+      },
       where: { id },
     });
   }

@@ -1,7 +1,8 @@
-import { Controller, Get, Body, Post, Param, Delete, Patch } from '@nestjs/common';
+import { Controller, Get, Body, Post, Param, Delete, Patch, Query } from '@nestjs/common';
 import { HarvestService } from './harvest.service';
 import { HarvestDto } from './dto/harvest.dto';
 import { CreateHarvestDto } from './dto/create-harvest.dto';
+import { ApiQuery } from '@nestjs/swagger';
 
 @Controller('harvests')
 export class HarvestController {
@@ -26,13 +27,17 @@ export class HarvestController {
     }
 
     @Get()
-    async getHarvest() {
+    @ApiQuery({ name: 'page', required: false, type: Number, example: 1 })
+    @ApiQuery({ name: 'pageSize', required: false, type: Number, example: 10 })
+    async getHarvest(@Query('page') page = '1', @Query('pageSize') pageSize = '10') {
         console.log('### execute getAll');
-        return await this.harvestService.getAll();
+        const pageNumber = parseInt(page, 10);
+        const pageSizeNumber = parseInt(pageSize, 10);
+        return await this.harvestService.getAll(pageNumber, pageSizeNumber);
     }
 
     @Get(':id')
-    async getProducerById(@Param('id') id: string) {
+    async getHarvestById(@Param('id') id: string) {
         console.log('### execute getHarvestById');
         const harvest = await this.harvestService.getHarvestById(parseInt(id));
         if (!harvest) {
